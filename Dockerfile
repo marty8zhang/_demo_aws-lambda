@@ -1,7 +1,8 @@
 FROM public.ecr.aws/lambda/nodejs:14
 
 # Copy function code and package.json
-COPY app.js package.json /var/task/
+WORKDIR /var/task/
+ADD . .
 
 # Install NPM dependencies for function
 RUN npm install

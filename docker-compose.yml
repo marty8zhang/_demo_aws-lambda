@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+    mariadb:
+        container_name: egghdz_tutorial_aws-lambda_mariadb
+        image: mariadb:latest
+        ports:
+            - "3306:3306"
+        environment:
+            TZ: "UTC"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_USER: 'root'
+            MYSQL_PASSWORD: ''
+
+    api:
+        container_name: egghdz_tutorial_aws-lambda_api
+        image: 461830811433.dkr.ecr.ap-southeast-2.amazonaws.com/egghdz_tutorial_aws-lambda:latest
+        build: .
+        ports:
+            - "9000:8080"
+        depends_on:
+            - mariadb
