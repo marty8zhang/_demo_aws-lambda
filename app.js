@@ -20,11 +20,11 @@ DROP DATABASE IF EXISTS ${process.env.DB_DATABASE}
 `);
     console.log('Database dropped:', dropDatabaseResult);
 
-    // Note: Can't use `utf8mb4_0900_ai_ci` yet for MariaDB.
+    // Note: Certain `COLLATE`s are only supported by certain server versions.
     const createDatabaseResult = await conn.query(`
 CREATE DATABASE IF NOT EXISTS ${process.env.DB_DATABASE}
 DEFAULT CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_520_ci
+COLLATE utf8mb4_unicode_ci
 `);
     console.log('Database created:', createDatabaseResult);
 
@@ -34,8 +34,8 @@ COLLATE utf8mb4_unicode_520_ci
     const tableCreationResult = await conn.query(`
 CREATE TABLE IF NOT EXISTS Test_Table (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  Name VARCHAR(255) NOT NULL UNIQUE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci
+  Name VARCHAR(191) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 `);
     console.log('Table created:', tableCreationResult);
 
